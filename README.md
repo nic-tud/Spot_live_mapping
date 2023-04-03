@@ -1,5 +1,13 @@
-# Real-Time Remote Mapping using Spot
-
+# Real-Time Mapping with Boston Dynamics Spot and Microsoft HoloLens 2
+## Description
+Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reality in real-time.
+## Prerequisites
+- ROS Noetic
+- 2 workstations
+  - Ubuntu 20.04
+  - Windows 10/11
+## Setup
+![Setup](doc/images/setup.pdf)
 - Linux workstation
   - install: ROS Noetic, RTABMAP, ROSBridge, Clearpath 
   - clearpath setup --> provide shell script (important: source on startup?)
