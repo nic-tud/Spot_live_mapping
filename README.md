@@ -7,7 +7,7 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
   - Ubuntu 20.04
   - Windows 10/11
 ## Setup
-![Setup](doc/images/setup.pdf)
+![Setup](docs/images/setup.pdf)
 - Linux workstation
   - install: ROS Noetic, RTABMAP, ROSBridge, Clearpath 
   - clearpath setup --> provide shell script (important: source on startup?)
