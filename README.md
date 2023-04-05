@@ -17,7 +17,7 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
 
 ### ROS Noetic and Spot Driver from Clearpath
 
-* run setup.sh (verlinken)
+* run [setup.sh](https://github.com/nic-tud/Spot_live_mapping/blob/main/src/setup.sh)
 
 ```
 chmod +x setup.sh
@@ -34,6 +34,9 @@ roslaunch spot_viz view_model.launch
 
 ```
 nano ~/.bashrc
+```
+--> add following line to .bashrc-file:
+```
 source ~/catkin_ws/devel/setup.bash
 ```
 
@@ -45,7 +48,7 @@ cd ~/catkin_ws/src/spot_ros/spot_driver/launch
 nano driver.launch
 ```
 
-* replace spot-driver python files (verlinken)
+* replace [spot-driver](https://github.com/nic-tud/Spot_live_mapping/tree/main/src/python/spot_driver) python files
 
 ```
 rm -r ~/catkin_ws/src/spot_ros/spot_driver/src/spot_driver/
