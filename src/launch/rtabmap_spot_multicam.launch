@@ -1,0 +1,107 @@
+
+<launch>
+
+  <!-- ROBOT MAPPING VERSION: use this with ROS bag demo_mapping.bag -->
+  <!-- WARNING : Database is automatically deleted on each startup -->
+  <!--           See "delete_db_on_start" option below... -->
+
+  <!-- Choose visualization -->
+  <arg name="rviz" default="true" />
+  <arg name="rtabmapviz" default="false" /> 
+  <arg name="local_bundle" default="true" />
+  <param name="use_sim_time" type="bool" value="true"/>
+
+  <!--<arg name="multicamera_odom" default="true"/>-->
+
+  <!-- Localization-only mode -->
+  <arg name="localization"      default="false"/>
+  <arg     if="$(arg localization)" name="rtabmap_args"  default=""/>
+  <arg unless="$(arg localization)" name="rtabmap_args"  default="--delete_db_on_start"/>
+
+  <group ns="camera1">
+    <node pkg="rtabmap_ros" type="rgbd_sync" name="rgbd_sync1">
+      <remap from="rgb/image"         to="/spot/camera/right/image"/>
+      <remap from="depth/image"       to="/spot/depth/right/depth_in_visual/image"/>
+      <remap from="rgb/camera_info"   to="/spot/camera/right/camera_info"/>
+      <param name="approx_sync"     value="false"/>
+      <param name="frame_id"         type="string" value="right_fisheye"/>
+    </node>
+  </group>
+  <group ns="camera2">
+    <node pkg="rtabmap_ros" type="rgbd_sync" name="rgbd_sync2">
+      <remap from="rgb/image"         to="/spot/camera/left/image"/>
+      <remap from="depth/image"       to="/spot/depth/left/depth_in_visual/image"/>
+      <remap from="rgb/camera_info"   to="/spot/camera/left/camera_info"/>
+      <param name="approx_sync"     value="false"/>
+      <param name="frame_id"         type="string" value="left_fisheye"/>
+    </node>
+  </group>
+  <group ns="camera3">
+    <node pkg="rtabmap_ros" type="rgbd_sync" name="rgbd_sync3">
+      <remap from="rgb/image"         to="/spot/camera/back/image"/>
+      <remap from="depth/image"       to="/spot/depth/back/depth_in_visual/image"/>
+      <remap from="rgb/camera_info"   to="/spot/camera/back/camera_info"/>
+      <param name="approx_sync"     value="false"/>
+      <param name="frame_id"         type="string" value="back_fisheye"/>
+    </node>
+  </group>
+  <!--<group ns="camera4">
+    <node pkg="rtabmap_ros" type="rgbd_sync" name="rgbd_sync4">
+      <remap from="rgb/image"         to="/spot/camera/frontleft/image"/>
+      <remap from="depth/image"       to="/spot/depth/frontleft/depth_in_visual/image"/>
+      <remap from="rgb/camera_info"   to="/spot/camera/frontleft/camera_info"/>
+      <param name="approx_sync"     value="false"/>
+      <param name="frame_id"         type="string" value="frontleft_fisheye"/>
+    </node>
+  </group>
+  <group ns="camera5">
+    <node pkg="rtabmap_ros" type="rgbd_sync" name="rgbd_sync5">
+      <remap from="rgb/image"         to="/spot/camera/frontright/image"/>
+      <remap from="depth/image"       to="/spot/depth/frontright/depth_in_visual/image"/>
+      <remap from="rgb/camera_info"   to="/spot/camera/frontright/camera_info"/>
+      <param name="approx_sync"     value="false"/>
+      <param name="frame_id"         type="string" value="frontright_fisheye"/>
+    </node>
+  </group>-->
+
+  <group ns="rtabmap">
+
+    <node pkg="rtabmap_ros" type="rgbdx_sync" name="rgbdx_sync">
+      <remap from="rgbd_image0"  to="/camera1/rgbd_image"/>
+      <remap from="rgbd_image1"  to="/camera2/rgbd_image"/>
+      <remap from="rgbd_image2"  to="/camera3/rgbd_image"/>
+      <!--<remap from="rgbd_image3"  to="/camera4/rgbd_image"/>
+      <remap from="rgbd_image4"  to="/camera5/rgbd_image"/>-->
+      <param name="rgbd_cameras" type="int"  value="3"/>  
+      <param name="approx_sync"  type="bool" value="true"/>
+    </node>
+
+   
+
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="$(arg rtabmap_args)">
+
+      <param name="rgbd_cameras"     type="int"    value="0"/> <!-- 0 to use rgbd_images input -->
+      
+      <param name="subscribe_depth" type="bool" value="false" />
+      <param name="subscribe_rgbd" type="bool" value="true" />
+      <param name="subscribe_odom" type="bool" value="true" />
+      <remap from="odom" to="/spot/odometry" />
+      <param name="odom_frame_id" type="string" value="odom" />
+
+      <param name="use_odom_covariance" type="bool" value="false" />
+
+      <param name="approx_sync"      type="bool"   value="true"/>
+
+      <param name="Vis/EstimationType" type="string" value="0"/> <!-- should be 0 for multi-cameras -->
+    </node>
+
+  </group>
+  
+  
+
+
+  <!-- Visualisation RVIZ -->
+  <node if="$(arg rviz)" pkg="rviz" type="rviz" name="rviz" args="-d $(find rtabmap_ros)/launch/config/demo_robot_mapping.rviz" output="screen"/>
+
+</launch>
+
