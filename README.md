@@ -35,7 +35,9 @@ roslaunch spot_viz view_model.launch
 ```
 nano ~/.bashrc
 ```
---> add following line to .bashrc-file:
+
+\--> add following line to .bashrc-file:
+
 ```
 source ~/catkin_ws/devel/setup.bash
 ```
@@ -65,17 +67,15 @@ cp REPO_RVIZ_SRC_FILE ~/catkin_ws/src/spot_ros/spot_viz/rviz/
 * ready to visualize the robots environment (if you have an spot robot, otherwise skip to rosbag(verlinken))
   * run in one terminal:
 
-```
-roslaunch spot_driver driver.launch
-```
+    ```
+    roslaunch spot_driver driver.launch
+    ```
+  * run in a second terminal:
 
-* run in a second terminal:
-
-```
-roslaunch spot_viz view_robot.launch
-```
-
-* TODO: comment about topics (monitoring, control), comment about messages (type, hz, bw), images (rqt_graph, rviz)
+    ```
+    roslaunch spot_viz view_robot.launch
+    ```
+  * TODO: comment about topics (monitoring, control), comment about messages (type, hz, bw), images (rqt_graph, rviz)
 * emulate Spot robot (use provided datasets) (verlinken)
   * run in third terminal:
 
