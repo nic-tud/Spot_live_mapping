@@ -3,6 +3,7 @@
 ## Description
 
 Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reality in real-time.
+![Demonstration](docs/images/overview_1.png)
 
 ## Prerequisites
 
@@ -14,6 +15,8 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
   * optional: Boston Dynamics Spot robot --> use provided datasets instead
 
 ## Setup
+### technical setup overview
+![Setup](docs/images/setup.png)
 
 ### ROS Noetic and Spot Driver from Clearpath
 
