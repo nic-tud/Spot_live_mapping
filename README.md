@@ -3,7 +3,8 @@
 ## Description
 
 Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reality in real-time.
-![Demonstration](docs/images/overview_1.png)
+![Pointclouds](docs/images/pointclouds.png)
+![Project intention](docs/images/overview_1.png)
 
 ## Prerequisites
 
@@ -15,12 +16,12 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
   * optional: Boston Dynamics Spot robot --> use provided datasets instead
 
 ## Setup
-### technical setup overview
-![Setup](docs/images/setup.png)
+### Technical setup overview
+<img src="docs/images/setup.png"  width="500" height="389">
 
 ### ROS Noetic and Spot Driver from Clearpath
 
-* run [setup.sh](https://github.com/nic-tud/Spot_live_mapping/blob/main/src/setup.sh)
+* run [setup.sh](src/setup.sh)
 
 ```
 chmod +x setup.sh
@@ -53,7 +54,7 @@ cd ~/catkin_ws/src/spot_ros/spot_driver/launch
 nano driver.launch
 ```
 
-* replace [spot-driver](https://github.com/nic-tud/Spot_live_mapping/tree/main/src/python/spot_driver) python files
+* replace [spot-driver](src/python/spot_driver) python files
 
 ```
 rm -r ~/catkin_ws/src/spot_ros/spot_driver/src/spot_driver/
@@ -79,13 +80,14 @@ cp REPO_RVIZ_SRC_FILE ~/catkin_ws/src/spot_ros/spot_viz/rviz/
     roslaunch spot_viz view_robot.launch
     ```
   * TODO: comment about topics (monitoring, control), comment about messages (type, hz, bw), images (rqt_graph, rviz)
-* emulate Spot robot (use provided datasets) (verlinken)
+* emulate Spot robot (use provided datasets) [Link to datasets (Google Drive)](https://drive.google.com/file/d/1VDxHfdgRFPuf-Q8Aa2ax8iOUDV3dr07L/view?usp=share_link)
   * run in third terminal:
 
-```
-rosbag play --clock name_of_file.bag
-```
-
+  ```bash
+  rosbag play --clock name_of_file.bag
+  ```
+  (--clock: causes rosbag play to publish simulated time synchronized to the messages in the bag file to the /clock topic)
+  [ROS Doku Rosbag](https://wiki.ros.org/rosbag/Commandline)
 ### RTABMAP_ROS
 
 * installation
@@ -95,14 +97,20 @@ sudo apt install ros-noetic-rtabmap-ros
 ```
 
 * TODO: replace rviz file
-* running launch-file (verlinken)
+* running launch-file 
+  * using only one camera ([Link to launch-script](src/launch/rtabmap_spot_singlecam.launch)) (TODO: comment what to change for specific cam)
+  
+    ```
+    roslaunch rtabmap_ros rtabmap_spot_singlecam.launch
+    ```
+  * using multiple cameras ([Link to launch-script](src/launch/rtabmap_spot_multicam.launch)) (TODO: comment what to change for specific number of cams)
+  
+    ```
+    roslaunch rtabmap_ros rtabmap_spot_multicam.launch
+    ```
 
-```
-roslaunch rtabmap_ros name_of_file.launch
-```
 
 [ROS Doku RTABMAP](http://wiki.ros.org/rtabmap_ros)
-
 * comment: optional parameter (rviz:..., rtabmapviz:..., use_sim_time:..., etc.)
 
 ### rosbridge
@@ -128,39 +136,3 @@ roslaunch rosbridge_server rosbridge_websocket.launch
 ```
 rosbag record -a
 ```
-
-* play bag-file (provided dataset)
-  * \--clock: causes rosbag play to publish simulated time synchronized to the messages in the bag file to the /clock topic
-
-```
-rosbag play --clock demo_mapping.bag
-```
-
-[ROS Doku Rosbag](https://wiki.ros.org/rosbag/Commandline)
-
-![Setup](docs/images/setup.png)
-
-* Linux workstation
-  * install: ROS Noetic, RTABMAP, ROSBridge, Clearpath
-  * clearpath setup --> provide shell script (important: source on startup?)
-    * bosdyn sdk
-    * config launch script (IP, username, password)
-    * change python files of ros driver (color images, depthInVisual) --> provide file
-    * change rviz --> provide file
-    * comment: easy to add robot control
-  * Datasets (3 rosbag files + comments on how to start + description what to see and so on)
-  * RTABMAP
-    * install --> provide shell script
-    * change launch script (easy to define multiple cameras for user) --> provide
-      * important: configs like use sim-time
-      * descript launch script
-    * provide rviz file
-    * provide rtabmapviz file
-  * ROSBridge
-    * install --> include in shell script?
-* Windows workstation
-  * install Unity 2019.4.18f --> see YT
-  * install ROS# --> see YT
-  * install Pointcloud-Streaming --> see YT
-  * setup scene with GameObjects, Renderer, Subscriber, Assets, IP of Linux etc.
-  * TODO: MRTK - Hololens setup
