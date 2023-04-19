@@ -18,7 +18,7 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
   * installation instructions described [here](#windows-workstation-setup) (Unity, ROS#, MRTK, PointCloudStreaming)
 
 * optional: Microsoft HoloLens (use emulator instead)
-* optional: Boston Dynamics Spot robot (use provided [datasets](https://drive.google.com/file/d/1VDxHfdgRFPuf-Q8Aa2ax8iOUDV3dr07L/view?usp=share_link) instead)
+* optional: Boston Dynamics Spot robot (use provided [datasets](https://cloudstore.zih.tu-dresden.de/index.php/s/JybxMZdqL84oepP) instead)
 
 ## Setup
 
@@ -98,7 +98,7 @@ Visualize the Boston Dynamics Robot Dog environment as 3D map in Augmented Reali
     roslaunch spot_viz view_robot.launch
     ```
   * TODO: comment about topics (monitoring, control), comment about messages (type, hz, bw), images (rqt_graph, rviz)
-* emulate Spot robot (use provided [datasets]([https://drive.google.com/file/d/1VDxHfdgRFPuf-Q8Aa2ax8iOUDV3dr07L/view?usp=share_link](https://cloudstore.zih.tu-dresden.de/index.php/s/JybxMZdqL84oepP))) 
+* emulate Spot robot (use provided [datasets](https://cloudstore.zih.tu-dresden.de/index.php/s/JybxMZdqL84oepP)) 
   * run in third terminal:
 
   ```bash
